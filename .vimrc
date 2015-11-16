@@ -114,3 +114,6 @@ if has("autocmd")
     " Treat .md files as Markdown
     autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+" Source extras
+source ~/.vim_extras
