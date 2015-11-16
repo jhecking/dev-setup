@@ -5,6 +5,16 @@ let g:solarized_termtrans=1
 
 " Make Vim more useful
 set nocompatible
+
+filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+source ~/.vim_plugins
+" All of your Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
