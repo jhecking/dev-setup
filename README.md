@@ -48,7 +48,7 @@ This repo takes a more **light-weight** approach to automation using a combinati
 
 ## Section 1: Installation
 
-**Scripts tested on OS X 10.10 Yosemite.**
+**Scripts tested on OS X 10.10 Yosemite and 10.11 El Capitan.**
 
 * [Single Setup Script](#single-setup-script)
 * [bootstrap.sh script](#bootstrapsh-script)
@@ -82,7 +82,7 @@ This repo takes a more **light-weight** approach to automation using a combinati
 * [Vagrant](#vagrant)
 * [Docker](#docker)
 * [Homebrew](#homebrew)
-* [Ruby and RVM](#ruby-and-rvm)
+* [Ruby and rbenv](#ruby-and-rbenv)
 * [Python](#python)
 * [Pip](#pip)
 * [Virtualenv](#virtualenv)
@@ -496,6 +496,23 @@ While inside the `Packages` directory, clone the theme repository using the comm
         "theme": "Soda Light 3.sublime-theme"
     }
 
+##### Changing Monokai Comment Color
+
+Although Monokai is a great color scheme, I find that comments can be difficult to see.  You can follow these [instructions](http://stackoverflow.com/a/32686509) to change the color of the default theme.
+
+I set my comments color to `#E6DB74`.
+
+```
+<dict>
+    ...
+    <dict>
+        <key>foreground</key>
+        <string>#E6DB74</string>
+    </dict>
+    ...
+</dict>
+```
+
 ### Atom
 
 <p align="center">
@@ -535,15 +552,13 @@ The [bootstrap.sh script](#bootstrapsh-script) and [osx.sh script](#osxsh-script
   <br/>
 </p>
 
-I prefer iTerm2 over the stock Terminal, as it has some some additional [great features](https://www.iterm2.com/features.html). Download and install iTerm2 (the newest version, even if it says "beta release").
+I prefer iTerm2 over the stock Terminal, as it has some additional [great features](https://www.iterm2.com/features.html). Download and install iTerm2 (the newest version, even if it says "beta release").
 
 In Finder, drag and drop the iTerm Application file into the Applications folder.
 
 You can now launch iTerm, through the Launchpad for instance.
 
-Let's just quickly change some preferences. In iTerm > Preferences..., under the tab General, uncheck Confirm closing multiple sessions and Confirm "Quit iTerm2 (Cmd+Q)" command under the section Closing.
-
-In the tab Profiles, create a new one with the "+" icon, and rename it to your first name for example. Then, select Other Actions... > Set as Default. Under the section Window, change the size to something better, like Columns: 125 and Rows: 35.  I also like to set General > Working Directory > Reuse previous session's directory.  Finally, I change the wy the option key works so that I can quickly jump between words as described [here](https://coderwall.com/p/h6yfda/use-and-to-jump-forwards-backwards-words-in-iterm-2-on-os-x).
+Let's just quickly change some preferences. In iTerm > Preferences..., in the tab Profiles, create a new one with the "+" icon, and rename it to your first name for example. Then, select Other Actions... > Set as Default. Under the section Window, change the size to something better, like Columns: 125 and Rows: 35.  I also like to set General > Working Directory > Reuse previous session's directory.  Finally, I change the way the option key works so that I can quickly jump between words as described [here](https://coderwall.com/p/h6yfda/use-and-to-jump-forwards-backwards-words-in-iterm-2-on-os-x).
 
 When done, hit the red "X" in the upper left (saving is automatic in OS X preference panes). Close the window and open a new one to see the size change.
 
@@ -551,27 +566,9 @@ When done, hit the red "X" in the upper left (saving is automatic in OS X prefer
 
 Since we spend so much time in the terminal, we should try to make it a more pleasant and colorful place. What follows might seem like a lot of work, but trust me, it'll make the development experience so much better.
 
-Let's go ahead and start by changing the font. In **iTerm > Preferences...**, under the tab **Profiles**, section **Text**, change both fonts to **Consolas 13pt**.
-
 Now let's add some color. I'm a big fan of the [Solarized](http://ethanschoonover.com/solarized) color scheme. It is supposed to be scientifically optimal for the eyes. I just find it pretty.
 
-Scroll down the page and download the latest version. Unzip the archive. In it you will find the `iterm2-colors-solarized` folder with a `README.md` file, but I will just walk you through it here:
-
-- In **iTerm2 Preferences**, under **Profiles** and **Colors**, go to **Load Presets... > Import...**, find and open the two **.itermcolors** files we downloaded.
-- Go back to **Load Presets...** and select **Solarized Dark** to activate it. Voila!
-
-**Note**: You don't have to do this, but there is one color in the **Solarized Dark** preset I don't agree with, which is *Bright Black*. You'll notice it's too close to *Black*. So I change it to be the same as *Bright Yellow*, i.e. **R 83 G 104 B 112**.
-
-Not a lot of colors yet. We need to tweak a little bit our Unix user's profile for that. This is done (on OS X and Linux), in the `~/.bash_profile` text file (`~` stands for the user's home directory).
-
-We'll come back to the details of that later, but for now, just download the files [.bash_profile](https://raw.githubusercontent.com/donnemartin/dev-setup/master/.bash_profile), [.bash_prompt](https://raw.githubusercontent.com/donnemartin/dev-setup/master/.bash_prompt), [.aliases](https://raw.githubusercontent.com/donnemartin/dev-setup/master/.aliases) attached to this document into your home directory (`.bash_profile` is the one that gets loaded, I've set it up to call the others):
-
-    $ cd ~
-    $ curl -O https://raw.githubusercontent.com/donnemartin/dev-setup/master/.bash_profile
-    $ curl -O https://raw.githubusercontent.com/donnemartin/dev-setup/master/.bash_prompt
-    $ curl -O https://raw.githubusercontent.com/donnemartin/mac-dev-setup/master/.aliases
-
-With that, open a new terminal tab (Cmd+T) and see the change! Try the list commands: `ls`, `ls -lh` (aliased to `ll`), `ls -lha` (aliased to `la`).
+- In **iTerm2 Preferences**, under **Profiles** and **Colors**, go to **Load Presets...** and select **Solarized Dark** to activate it. Voila!
 
 At this point you can also change your computer's name, which shows up in this terminal prompt. If you want to do so, go to **System Preferences** > **Sharing**. For example, I changed mine from "Donne's MacBook Pro" to just "MacBook Pro", so it shows up as `MacBook-Pro` in the terminal.
 
@@ -755,94 +752,53 @@ To see what you have installed (with their version numbers):
 
     $ brew list --versions
 
-### Ruby and RVM
+### Ruby and rbenv
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/donnemartin/dev-setup-resources/master/res/ruby.png">
   <br/>
 </p>
 
-[Ruby](http://www.ruby-lang.org/) is already installed on Unix systems. But we don't want to mess around with that installation. More importantly, we want to be able to use the latest version of Ruby.
+[Ruby](http://www.ruby-lang.org/) is already installed on Unix systems, but we don't want to mess around with that installation. More importantly, we want to be able to use the latest version of Ruby.
 
 #### Installation
 
-When installing Ruby, best practice is to use [RVM](https://rvm.io/) (Ruby Version Manager) which allows you to manage multiple versions of Ruby on the same machine. Installing RVM, as well as the latest version of Ruby, is very easy. Just run:
+`brew.sh` provides [rbenv](https://github.com/rbenv/rbenv) and [ruby-build](https://github.com/rbenv/ruby-build) which allow you to manage multiple versions of Ruby on the same machine.  `brew.sh` adds the following line to your `.extra` file to initialize `rbenv`:
 
-    $ curl -L https://get.rvm.io | bash -s stable --ruby
-
-When it is done, both RVM and a fresh version of Ruby 2.0 are installed. The following line was also automatically added to your `.bash_profile`:
-
-```bash
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 ```
-
-I prefer to move that line to the `.extra` file, keeping my `.bash_profile` clean. I suggest you do the same.
-
-After that, start a new terminal and run:
-
-    $ type rvm | head -1
-
-You should get the output `rvm is a function`.
+eval "$(rbenv init -)"
+```
 
 #### Usage
 
-The following command will show you which versions of Ruby you have installed:
+`rbenv` uses `ruby-build` to download, compile, and install new versions of Ruby. You can see all versions available to download and install:
 
-    $ rvm list
+```
+$ ruby-build --definitions
+```
 
-The one that was just installed, Ruby 2.0, should be set as default. When managing multiple versions, you switch between them with:
+To install a new version of Ruby:
 
-    $ rvm use system # Switch back to system install (1.8)
-    $ rvm use 2.0.0 --default # Switch to 2.0.0 and sets it as default
+```
+# list all available versions installed on the system:
+$ rbenv install -l
 
-Run the following to make sure the version you want is being used (in our case, the just-installed Ruby 1.9.3):
+# install a Ruby version:
+$ rbenv install 2.2.3
+```
 
-    $ which ruby
-    $ ruby --version
+To switch Ruby versions:
 
-You can install another version with:
+```
+# set a local application-specific Ruby version in the current directory
+$ rbenv local 1.9.3
 
-    $ rvm install 1.9.3
+# set the global version of Ruby to be used in all shells
+$ rbenv global 2.0.0
 
-To update RVM itself, use:
+```
 
-    $ rvm get stable
-
-[RubyGems](http://rubygems.org/), the Ruby package manager, was also installed:
-
-    $ which gem
-
-Update to its latest version with:
-
-    $ gem update --system
-
-To install a "gem" (Ruby package), run:
-
-    $ gem install <gemname>
-
-To install without generating the documentation for each gem (faster):
-
-    $ gem install <gemname> --no-document
-
-To see what gems you have installed:
-
-    $ gem list
-
-To check if any installed gems are outdated:
-
-    $ gem outdated
-
-To update all gems or a particular gem:
-
-    $ gem update [<gemname>]
-
-RubyGems keeps old versions of gems, so feel free to do come cleaning after updating:
-
-    $ gem cleanup
-
-I mainly use Ruby for the CSS pre-processor [Compass](http://compass-style.org/), which is built on top of [Sass](http://sass-lang.com/):
-
-    $ gem install compass --no-document
+`rbenv` by default will install Ruby versions into a directory of the same name under `~/.rbenv/versions`. Because your user owns this directory, you no longer need to use `sudo` to install gems.
 
 ### Python
 
@@ -1925,11 +1881,7 @@ See the [Credits Page](https://github.com/donnemartin/dev-setup/blob/master/CRED
 
 Feel free to contact me to discuss any issues, questions, or comments.
 
-* Email: [donne.martin@gmail.com](mailto:donne.martin@gmail.com)
-* Twitter: [@donne_martin](https://twitter.com/donne_martin)
-* GitHub: [donnemartin](https://github.com/donnemartin)
-* LinkedIn: [donnemartin](https://www.linkedin.com/in/donnemartin)
-* Website: [donnemartin.com](http://donnemartin.com)
+My contact info can be found on my [GitHub page](https://github.com/donnemartin).
 
 ### License
 

@@ -56,6 +56,12 @@ brew install wget --with-iri
 #brew install python
 #brew install python3
 
+# Install ruby-build and rbenv
+brew install ruby-build
+brew install rbenv
+LINE='eval "$(rbenv init -)"'
+grep -q "$LINE" ~/.extra || echo "$LINE" >> ~/.extra
+
 # Install more recent versions of some OS X tools.
 brew install vim --override-system-vi
 brew install homebrew/dupes/grep
@@ -92,7 +98,7 @@ brew install woff2
 #brew install tcpreplay
 #brew install tcptrace
 #brew install ucspi-tcp # `tcpserver` etc.
-#brew install xpdf
+#brew install homebrew/x11/xpdf
 #brew install xz
 
 # Install other useful binaries.
@@ -102,6 +108,8 @@ brew install dark-mode
 brew install git
 brew install git-lfs
 brew install git-flow
+brew install git-extras
+brew install hub
 brew install imagemagick --with-webp
 brew install lua
 brew install lynx
@@ -130,6 +138,7 @@ brew link libxslt --force
 
 # Install Cask
 brew install caskroom/cask/brew-cask
+brew tap caskroom/versions
 
 # Core casks
 brew cask install --appdir="/Applications" alfred
@@ -143,14 +152,16 @@ brew cask install --appdir="/Applications" alfred
 brew cask install --appdir="/Applications" virtualbox
 brew cask install --appdir="/Applications" vagrant
 #brew cask install --appdir="/Applications" heroku-toolbelt
+brew cask install --appdir="/Applications" macdown
 
 # Misc casks
-#brew cask install --appdir="/Applications" google-chrome
-#brew cask install --appdir="/Applications" firefox
-#brew cask install --appdir="/Applications" skype
+brew cask install --appdir="/Applications" google-chrome
+brew cask install --appdir="/Applications" firefox
+brew cask install --appdir="/Applications" skype
 brew cask install --appdir="/Applications" slack
-#brew cask install --appdir="/Applications" dropbox
+brew cask install --appdir="/Applications" dropbox
 #brew cask install --appdir="/Applications" evernote
+brew cask install --appdir="/Applications" 1password
 #brew cask install --appdir="/Applications" gimp
 #brew cask install --appdir="/Applications" inkscape
 
